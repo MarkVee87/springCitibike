@@ -31,14 +31,6 @@ public class CitibikeService {
         System.out.println("adding objects to HZ");
         // TODO: com.hazelcast.nio.serialization.HazelcastSerializationException: There is no suitable serializer for class ingester.Model.CitibikeObject
         hazelcastInstance.getMap("stations").put(currentTime, stations);
-//        printObjects();
-    }
-
-    private void printObjects() {
-        // get map 'stations' and print contents
-        System.out.println("printing all objects in HZ");
-        CitibikeObject c = (CitibikeObject) hazelcastInstance.getMap("stations").getOrDefault(currentTime, new CitibikeObject());
-        System.out.println(c.toString());
     }
 
     private CitibikeObject getCBJson() {

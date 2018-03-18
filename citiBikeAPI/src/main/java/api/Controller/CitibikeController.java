@@ -1,6 +1,6 @@
 package api.Controller;
 
-import ingester.Model.CitibikeStationsList;
+import ingester.Model.CitibikeObject;
 import ingester.Service.CitibikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ public class CitibikeController {
     CitibikeService citibikeService;
 
     @RequestMapping("/")
-    public CitibikeStationsList returnStations() {
+    public CitibikeObject returnStations() {
         return citibikeService.getCBJson();
     }
 }

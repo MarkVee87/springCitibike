@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CitibikeStationsList {
+public class CitibikeObject {
 
     @JsonProperty("executionTime")
     private String executionTime;
@@ -15,6 +15,6 @@ public class CitibikeStationsList {
     @JsonProperty("stationBeanList")
     private List<CitibikeStation> stationBeanList = new ArrayList<CitibikeStation>();
 
-    public CitibikeStationsList() {
+    public CitibikeObject() {
     }
 }

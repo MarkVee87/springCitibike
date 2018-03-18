@@ -15,7 +15,7 @@ public class IngesterConfig {
     @Bean
     public Config hazelCastConfig(){
         return new Config()
-                .setInstanceName("hazelcast-instance")
+                .setInstanceName("hazelcast-instance-ingester")
                 .addMapConfig(
                         new MapConfig()
                                 .setName("stations")
@@ -23,5 +23,4 @@ public class IngesterConfig {
                                 .setEvictionPolicy(EvictionPolicy.LRU)
                                 .setTimeToLiveSeconds(20));
     }
-
 }

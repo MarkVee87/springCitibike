@@ -2,6 +2,7 @@ package ingester.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hazelcast.core.HazelcastInstance;
 import ingester.Model.CitibikeObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,20 +15,46 @@ public class CitibikeService {
 
     private CitibikeObject stations;
     private ObjectMapper objectMapper;
+    private Long currentTime;
+
+    private HazelcastInstance hazelcastInstance;
 
     @Autowired
-    public CitibikeService() {
-        this.objectMapper =  new ObjectMapper();
+    public CitibikeService(HazelcastInstance hazelcastInstance) {
+        this.objectMapper = new ObjectMapper();
+        this.stations = getCBJson();
+        this.hazelcastInstance = hazelcastInstance;
     }
 
-    public CitibikeObject getCBJson() {
-        try {
-            URL url = new URL("https://feeds.citibikenyc.com/stations/stations.json");
-            stations = objectMapper.readValue(url, new TypeReference<CitibikeObject>() {
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void insertObject() {
+        currentTime = System.currentTimeMillis();
+        System.out.println("adding objects to HZ");
+        // TODO: com.hazelcast.nio.serialization.HazelcastSerializationException: There is no suitable serializer for class ingester.Model.CitibikeObject
+        hazelcastInstance.getMap("stations").put(currentTime, stations);
+//        printObjects();
+    }
+
+    private void printObjects() {
+        // get map 'stations' and print contents
+        System.out.println("printing all objects in HZ");
+        CitibikeObject c = (CitibikeObject) hazelcastInstance.getMap("stations").getOrDefault(currentTime, new CitibikeObject());
+        System.out.println(c.toString());
+    }
+
+    private CitibikeObject getCBJson() {
+        if (stations == null) {
+            try {
+                URL url = new URL("https://feeds.citibikenyc.com/stations/stations.json");
+                stations = objectMapper.readValue(url, new TypeReference<CitibikeObject>() {
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        return stations;
+    }
+
+    public CitibikeObject getStations(){
         return stations;
     }
 }

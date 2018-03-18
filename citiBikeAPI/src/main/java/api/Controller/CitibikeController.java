@@ -14,6 +14,7 @@ public class CitibikeController {
 
     @RequestMapping("/")
     public CitibikeObject returnStations() {
-        return citibikeService.getCBJson();
+        citibikeService.insertObject();
+        return citibikeService.getStations();
     }
 }

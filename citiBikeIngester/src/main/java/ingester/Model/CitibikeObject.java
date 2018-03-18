@@ -17,4 +17,11 @@ public class CitibikeObject {
 
     public CitibikeObject() {
     }
+
+    @Override
+    public String toString() {
+        return "CitibikeObject{" +
+                "executionTime='" + executionTime + '\'' +
+                '}';
+    }
 }

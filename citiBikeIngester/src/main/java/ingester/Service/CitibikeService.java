@@ -3,7 +3,7 @@ package ingester.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.ReplicatedMap;
+import com.hazelcast.core.IMap;
 import ingester.Model.CitibikeObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,10 +47,7 @@ public class CitibikeService {
     }
 
     public CitibikeObject getStations(){
-        // TODO: return from Hz instead of local object
-        ReplicatedMap<Long, CitibikeObject> replicatedMap = hazelcastInstance.getReplicatedMap("stations");
-        return replicatedMap.get(currentTime);
-
-//        return stations;
+        IMap<Long, CitibikeObject> objects = hazelcastInstance.getMap("stations");
+        return objects.get(currentTime);
     }
 }

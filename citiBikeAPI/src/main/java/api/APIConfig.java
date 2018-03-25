@@ -26,7 +26,7 @@ public class APIConfig {
     @Bean
     public Config hazelCastConfig(){
         return new Config()
-                .setInstanceName("hazelcast-instance-api")
+                .setInstanceName("hazelcast-instance")
                 .addMapConfig(
                         new MapConfig()
                                 .setName("stations")

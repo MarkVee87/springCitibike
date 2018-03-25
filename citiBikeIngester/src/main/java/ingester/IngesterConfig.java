@@ -15,7 +15,7 @@ public class IngesterConfig {
     @Bean
     public Config hazelCastConfig(){
         return new Config()
-                .setInstanceName("hazelcast-instance-ingester")
+                .setInstanceName("hazelcast-instance")
                 .addMapConfig(
                         new MapConfig()
                                 .setName("stations")

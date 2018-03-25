@@ -4,4 +4,4 @@ Example of using a Hazelcast (Hz) cluster across two nodes, implemented using tw
 
 citiBikeIngester - responsible for gathering data from the citibike endpoint and storing it in Hz
 
-citiBikeAPI - responsible for returning data from Hz to end user
+citiBikeAPI - responsible for handling requests and returning data from Hz
